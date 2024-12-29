@@ -38,8 +38,13 @@ class _goodsInfoState extends State<GoodsInfo> {
             SizedBox(
               height: 20.h,
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            Container(
+              margin: EdgeInsets.only(left:20.w,right:20.w),
+              padding: EdgeInsets.all(20.w),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -76,7 +81,7 @@ class _goodsInfoState extends State<GoodsInfo> {
                   )
                 ],
               ),
-            ),
+            )
           ],
         ),
       )),

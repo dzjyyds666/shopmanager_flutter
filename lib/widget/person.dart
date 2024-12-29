@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shopmanager/Utils/Utils.dart';
+import 'package:shopmanager/page/login.dart';
+import 'package:shopmanager/page/order.dart';
+import 'package:shopmanager/server_api.dart';
+import 'package:shopmanager/server_api/model/httpresponse.dart';
 
 class PersonPage extends StatefulWidget {
   @override
@@ -89,6 +95,9 @@ class _PersonPageState extends State<PersonPage> {
                                   TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
+                                        // todo 退出登录
+                                        print('退出登录');
+                                        _logout();
                                       },
                                       child: Text(
                                         '确定',
@@ -163,6 +172,33 @@ class _PersonPageState extends State<PersonPage> {
                   SizedBox(width: 20.w),
                   Text(
                     '修改头像',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Spacer(),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            )),
+        SizedBox(height: 20.h),
+        Container(
+            margin: EdgeInsets.only(left: 20.w, right: 20.w),
+            padding: EdgeInsets.all(20.w),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(20.r)),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => OrderInfo()));
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Row(
+                children: [
+                  Icon(Icons.reorder),
+                  SizedBox(width: 20.w),
+                  Text(
+                    '查看订单',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Spacer(),
@@ -284,5 +320,26 @@ class _PersonPageState extends State<PersonPage> {
                     child: Text('确定')),
               ]);
         });
+  }
+
+  void _logout()async {
+    String token = await Utils.getToken();
+    ServerApi.Logout(token,_logoutSucess, _logoutFailed);
+  }
+
+  void _logoutSucess(httpResponse rsp) async {
+    Utils.removeUserInfoFromSp().then((e) {
+      Utils.showToast('退出成功', myColorPool.toastBackgroundSuccColor.hexCode(),
+          myColorPool.toastTextBlueSuccColor.hexCode());
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+    });
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
+  void _logoutFailed(httpResponse rsp) {
+    Utils.showToast('退出失败', myColorPool.toastBackgroundSuccColor.hexCode(),
+        myColorPool.toastTextBlueSuccColor.hexCode());
   }
 }

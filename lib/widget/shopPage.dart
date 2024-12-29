@@ -9,8 +9,7 @@ class ShopPage extends StatefulWidget {
   State<StatefulWidget> createState() => _ShopPageState();
 }
 
-class _ShopPageState extends State<ShopPage>{
-
+class _ShopPageState extends State<ShopPage> {
   @override
   void initState() {
     super.initState();
@@ -26,7 +25,10 @@ class _ShopPageState extends State<ShopPage>{
           padding: EdgeInsets.all(10.w),
           child: Text(
             '欢迎使用超市管理系统',
-            style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
           ),
         ),
         SizedBox(
@@ -41,29 +43,38 @@ class _ShopPageState extends State<ShopPage>{
           ),
         ),
         SizedBox(height: 20.h),
-        Padding(padding: EdgeInsets.only(left: 20.w),child: Text('热门产品',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),),),
-        SizedBox(height:10.h),
+        Padding(
+          padding: EdgeInsets.only(left: 20.w),
+          child: Text(
+            '热门产品',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(height: 10.h),
         Expanded(
             child: SingleChildScrollView(
-              child: Wrap(
-                children: [
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                  _goodsItme(),
-                ],
-              ),
-            )),
+          child: Wrap(
+            children: [
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+              _goodsItme(),
+            ],
+          ),
+        )),
         SizedBox(height: 80.h)
       ],
     );
